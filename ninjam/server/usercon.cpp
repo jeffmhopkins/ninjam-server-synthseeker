@@ -433,7 +433,7 @@ void User_Connection::SendUserList(User_Group *group)
   mpb_server_userinfo_change_notify bh;
 
   int user;
-  for (user = 0; user < group->m_users.GetSize(); user++)
+  for (user = 1; user < group->m_users.GetSize(); user++)
   {
     User_Connection *u=group->m_users.Get(user);
     int channel;
