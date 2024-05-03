@@ -449,7 +449,7 @@ void User_Connection::SendUserList(User_Group *group)
           acnt++;
         }
       }
-      if (!acnt && !group->m_allow_hidden_users && u->m_max_channels && !(u->m_auth_privs & PRIV_HIDDEN)) // give users at least one channel
+      if (!acnt && !group->m_allow_hidden_users && u->m_max_channels && !(u->m_auth_privs & PRIV_HIDDEN) && !strcmp(u->m_username.get(),"njcast") && !strcmp(u->m_username.get(),"njcast_")) // give users at least one channel
       {
           bh.build_add_rec(1,0,0,0,0,u->m_username.Get(),"");
       }
