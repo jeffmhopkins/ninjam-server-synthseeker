@@ -442,7 +442,7 @@ void User_Connection::SendUserList(User_Group *group)
       int acnt=0;
       for (channel = 0; channel < u->m_max_channels && channel < MAX_USER_CHANNELS; channel ++)
       {
-        if (u->m_channels[channel].active)
+        if (u->m_channels[channel].active && !strcmp(u->m_username.Get(),"njcast") && !strcmp(u->m_username.Get(),"njcast_"))
         {
           bh.build_add_rec(1,channel,u->m_channels[channel].volume,u->m_channels[channel].panning,u->m_channels[channel].flags,
                             u->m_username.Get(),u->m_channels[channel].name.Get());
