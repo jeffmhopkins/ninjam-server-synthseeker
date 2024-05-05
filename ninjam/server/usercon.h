@@ -114,6 +114,8 @@ class User_Group
     int m_last_bpm, m_last_bpi;
     int m_keepalive;
 
+    bool m_locked;
+
 
     int m_voting_threshold; // can be 1-100, or >100 to disable
     int m_voting_timeout; // seconds
