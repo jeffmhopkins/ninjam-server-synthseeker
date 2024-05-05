@@ -1,0 +1,55 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h1><strong>Synth Seeker Online Jamming</strong></h1>
+
+<p><strong><em><u>What is NINJAM?</u></em></strong></p>
+
+<ul>
+	<li>NINJAM stands for Novel Intervallic Network Jamming Architecture for Music.</li>
+	<li>The software and systems comprising NINJAM provide a non-realtime mechanism for exchanging audio data across the internet, with a synchronization mechanism at a set interval.</li>
+	<li><a data-saferedirecturl="https://www.google.com/url?q=https://en.wikipedia.org/wiki/Ninjam&amp;source=gmail&amp;ust=1715028606512000&amp;usg=AOvVaw2kCsnz3Wu1BF6o10q7bzW6" href="https://en.wikipedia.org/wiki/Ninjam" target="_blank">https://en.wikipedia.org/wiki/<wbr />Ninjam</a></li>
+	<li><a data-saferedirecturl="https://www.google.com/url?q=https://github.com/justinfrankel/ninjam&amp;source=gmail&amp;ust=1715028606512000&amp;usg=AOvVaw2ZqTSmYnBfIDhsdGVXMDie" href="https://github.com/justinfrankel/ninjam" target="_blank">https://github.com/<wbr />justinfrankel/ninjam</a></li>
+</ul>
+
+<p><strong><em><u>How are we using NINJAM?</u></em></strong></p>
+
+<ul>
+	<li>For non-scheduled fun jamming with other members of the community with similar musical styles and tastes</li>
+	<li>For public performances with multiple members of the community</li>
+</ul>
+
+<p><strong><em><u>NINJAM Clients</u></em></strong></p>
+
+<ul>
+	<li>To connect to the community NINJAM server, you must have a NINJAM client installed on your local system.</li>
+	<li>We almost exclusively use JAMTABA 2
+	<ul>
+		<li><a data-saferedirecturl="https://www.google.com/url?q=https://github.com/elieserdejesus/JamTaba&amp;source=gmail&amp;ust=1715028606513000&amp;usg=AOvVaw18k2wasJ4QgTBoE9FXi8-V" href="https://github.com/elieserdejesus/JamTaba" target="_blank">https://github.com/<wbr />elieserdejesus/JamTaba</a></li>
+	</ul>
+	</li>
+	<li>JAMTABA operates in either standalone mode or as a VST / AU.</li>
+</ul>
+
+<p><strong><em><u>NINJAM Servers</u></em></strong></p>
+
+<ul>
+	<li>Numerous public servers exist, and are accessible from inside the JAMTABA application/plugin.</li>
+	<li>A community private server is operated for jamming with friends without being dropped in on by the public, and for live streaming events where we need to restrict users.</li>
+</ul>
+
+<p><strong><em><u>The Synth Seeker Community Private Server</u></em></strong></p>
+
+<ul>
+	<li><strong>ninjam.synthseeker.online:2049</strong>&nbsp;is our community NINJAM server</li>
+	<li>It currently accepts anonymous logins (but could change in the future if needed)</li>
+	<li>You can pull up a live stream of it from&nbsp;<strong>ninjam.synthseeker.online:8000</strong>
+	<ul>
+		<li>This can also be streamed to phones and anything that can take a shoutcast stream or web browser.</li>
+	</ul>
+	</li>
+</ul>
+</body>
+</html>
