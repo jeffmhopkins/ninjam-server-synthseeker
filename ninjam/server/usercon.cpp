@@ -1064,7 +1064,11 @@ int User_Group::Run()
           JNL::addr_to_ipstr(p->m_netcon.GetConnection()->get_remote(),addrbuf,sizeof(addrbuf));
 
           logText("%s: disconnected (username:'%s', code=%d)\n",addrbuf,p->m_auth_state>0?p->m_username.Get():"",ret);
-
+          if(m_locked)
+          {
+            logText("Server unlocked");
+            m_locked = false;
+          }
           delete p;
           m_users.Delete(thispos);
           x--;
