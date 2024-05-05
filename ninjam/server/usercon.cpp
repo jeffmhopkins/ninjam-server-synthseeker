@@ -266,6 +266,15 @@ void User_Connection::SendMOTDFile(User_Group *group)
 
 int User_Connection::OnRunAuth(User_Group *group)
 {
+  if(group->m_locked)
+  {
+      logText("%s: Refusing user, Server is Locked.\n",addrbuf);
+      mpb_server_auth_reply bh;
+      bh.errmsg="server is locked";
+      Send(bh.build());
+      return 0;
+  }
+  
   char addrbuf[256];
   JNL::addr_to_ipstr(m_netcon.GetConnection()->get_remote(),addrbuf,sizeof(addrbuf));
  
