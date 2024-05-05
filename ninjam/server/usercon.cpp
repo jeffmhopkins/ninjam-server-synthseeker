@@ -1111,6 +1111,28 @@ void User_Group::onChatMessage(User_Connection *con, mpb_chat_message *msg)
       return;
     }
 
+    if (str_begins_tok(p,"!lock"))
+    {
+      m_locked = true;
+      mpb_chat_message newmsg;
+      newmsg.parms[0]="PRIVMSG";
+      newmsg.parms[1]="*";
+      newmsg.parms[2]="Server is locked, new connections will now be refused.";
+      con->Send(newmsg.build());
+      return;
+    }
+
+    if (str_begins_tok(p,"!unlock"))
+    {
+      m_locked = false;
+      mpb_chat_message newmsg;
+      newmsg.parms[0]="PRIVMSG";
+      newmsg.parms[1]="*";
+      newmsg.parms[2]="Server is unlocked, new connections will be allowed.";
+      con->Send(newmsg.build());
+      return;
+    }
+
     WDL_PtrList<Net_Message> need_bcast;
     if (m_is_lobby_mode)
     {
