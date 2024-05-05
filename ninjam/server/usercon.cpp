@@ -268,7 +268,7 @@ int User_Connection::OnRunAuth(User_Group *group)
 {
   if(group->m_locked)
   {
-      logText("%s: Refusing user, Server is Locked.\n",addrbuf);
+      logText("%s: Refusing user, Server is Locked.\n");
       mpb_server_auth_reply bh;
       bh.errmsg="server is locked";
       Send(bh.build());
