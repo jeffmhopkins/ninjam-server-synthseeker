@@ -1,1 +1,8 @@
 This is NINJAM, www.ninjam.com
+
+---------
+
+Changes added to this fork:
+ !lock - Refuse any new connections
+ !unlock - Remove loc, allow new connection
+ Anyone logging off will unlock the server as well
