@@ -266,14 +266,6 @@ void User_Connection::SendMOTDFile(User_Group *group)
 
 int User_Connection::OnRunAuth(User_Group *group)
 {
-  if(group->m_locked)
-  {
-      logText("%s: Refusing user, Server is Locked.\n");
-      mpb_server_auth_reply bh;
-      bh.errmsg="server is locked";
-      Send(bh.build());
-      return 0;
-  }
   
   char addrbuf[256];
   JNL::addr_to_ipstr(m_netcon.GetConnection()->get_remote(),addrbuf,sizeof(addrbuf));
@@ -296,6 +288,15 @@ int User_Connection::OnRunAuth(User_Group *group)
       Send(bh.build());
       return 0;
     }
+  }
+
+  if(group->m_locked)
+  {
+      logText("%s: Refusing user, Server is Locked.\n",addrbuf);
+      mpb_server_auth_reply bh;
+      bh.errmsg="server is locked\n";
+      Send(bh.build());
+      return 0;
   }
 
   if (m_lookup->is_status)
@@ -1066,7 +1067,7 @@ int User_Group::Run()
           logText("%s: disconnected (username:'%s', code=%d)\n",addrbuf,p->m_auth_state>0?p->m_username.Get():"",ret);
           if(m_locked)
           {
-            logText("Server unlocked");
+            logText("Server unlocked\n");
             m_locked = false;
           }
           delete p;
