@@ -433,7 +433,7 @@ void User_Connection::SendUserList(User_Group *group)
   mpb_server_userinfo_change_notify bh;
 
   int user;
-  for (user = 1; user < group->m_users.GetSize(); user++)
+  for (user = 0; user < group->m_users.GetSize(); user++)
   {
     User_Connection *u=group->m_users.Get(user);
     int channel;
@@ -442,7 +442,7 @@ void User_Connection::SendUserList(User_Group *group)
       int acnt=0;
       for (channel = 0; channel < u->m_max_channels && channel < MAX_USER_CHANNELS; channel ++)
       {
-        if (u->m_channels[channel].active && !strcmp(u->m_username.Get(),"njcast") && !strcmp(u->m_username.Get(),"njcast_"))
+        if (u->m_channels[channel].active)
         {
           bh.build_add_rec(1,channel,u->m_channels[channel].volume,u->m_channels[channel].panning,u->m_channels[channel].flags,
                             u->m_username.Get(),u->m_channels[channel].name.Get());
