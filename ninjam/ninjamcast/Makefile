@@ -2,7 +2,7 @@
 # CPU optimization section
 #############################################################
 
-OPTFLAGS =  -O2
+OPTFLAGS =  -O2 
 
 ifdef MAC
 OPTFLAGS += -D_MAC -mcpu=7450
@@ -44,7 +44,7 @@ CXXFLAGS = $(CFLAGS)
 default: ninjamcast
 
 ninjamcast: $(OBJS)
-        $(CXX) $(CXXFLAGS) -o ninjamcast $(OBJS) -lpthread $(LFLAGS) -logg -lvorbis -lvorbisenc -lmp3lame
+	$(CXX) $(CXXFLAGS) -o ninjamcast $(OBJS) -lpthread $(LFLAGS) -logg -lvorbis -lvorbisenc -lmp3lame
 
 clean:
-        -rm $(OBJS) ninjamcast
+	-rm $(OBJS) ninjamcast
