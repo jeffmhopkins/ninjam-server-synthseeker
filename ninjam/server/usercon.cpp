@@ -294,7 +294,7 @@ int User_Connection::OnRunAuth(User_Group *group)
   {
       logText("%s: Refusing user, Server is Locked.\n",addrbuf);
       mpb_server_auth_reply bh;
-      bh.errmsg="server is locked\n";
+      bh.errmsg="Refusing user, Server is locked\n";
       Send(bh.build());
       return 0;
   }
@@ -1067,7 +1067,7 @@ int User_Group::Run()
           logText("%s: disconnected (username:'%s', code=%d)\n",addrbuf,p->m_auth_state>0?p->m_username.Get():"",ret);
           if(m_locked)
           {
-            logText("Server unlocked\n");
+            logText("A user has disconnected. Server unlocked.\n");
             m_locked = false;
           }
           delete p;
@@ -1129,7 +1129,7 @@ void User_Group::onChatMessage(User_Connection *con, mpb_chat_message *msg)
     {
       m_locked = true;
       mpb_chat_message newmsg;
-      newmsg.parms[0]="PRIVMSG";
+      newmsg.parms[0]="MSG";
       newmsg.parms[1]="*";
       newmsg.parms[2]="Server is locked, new connections will now be refused.";
       con->Send(newmsg.build());
@@ -1140,7 +1140,7 @@ void User_Group::onChatMessage(User_Connection *con, mpb_chat_message *msg)
     {
       m_locked = false;
       mpb_chat_message newmsg;
-      newmsg.parms[0]="PRIVMSG";
+      newmsg.parms[0]="MSG";
       newmsg.parms[1]="*";
       newmsg.parms[2]="Server is unlocked, new connections will be allowed.";
       con->Send(newmsg.build());
