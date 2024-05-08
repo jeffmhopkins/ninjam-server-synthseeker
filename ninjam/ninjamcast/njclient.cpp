@@ -28,8 +28,8 @@
 #include <stdarg.h>
 #include "njclient.h"
 #include "mpb.h"
-#include "../WDL/pcmfmtcvt.h"
-#include "../WDL/wavwrite.h"
+#include "../../WDL/pcmfmtcvt.h"
+#include "../../WDL/wavwrite.h"
 
 
 
