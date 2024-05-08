@@ -1130,7 +1130,7 @@ void User_Group::onChatMessage(User_Connection *con, mpb_chat_message *msg)
       m_locked = true;
       mpb_chat_message newmsg;
       newmsg.parms[0]="MSG";
-      newmsg.parms[1]="*";
+      newmsg.parms[1]="Server";
       newmsg.parms[2]="Server is locked, new connections will now be refused.";
       con->Send(newmsg.build());
       return;
@@ -1141,7 +1141,7 @@ void User_Group::onChatMessage(User_Connection *con, mpb_chat_message *msg)
       m_locked = false;
       mpb_chat_message newmsg;
       newmsg.parms[0]="MSG";
-      newmsg.parms[1]="*";
+      newmsg.parms[1]="Server";
       newmsg.parms[2]="Server is unlocked, new connections will be allowed.";
       con->Send(newmsg.build());
       return;
