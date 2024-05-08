@@ -285,7 +285,7 @@ void NJCast::handleTitleSetting() {
         needcomma = 1;
       }
       if (n == 0) {
-        url.Append("No%20users.");
+        url.Append("No_Users");
       }
 
       if (strcmp(url.Get(), last_title_url.Get())) {
