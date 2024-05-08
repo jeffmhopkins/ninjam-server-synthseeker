@@ -18,7 +18,7 @@
 #include "../../WDL/dirscan.h"
 #include "../../WDL/lineparse.h"
 
-#include "../njclient.h"
+#include "njclient.h"
 
 #include "njcast.h"
 
