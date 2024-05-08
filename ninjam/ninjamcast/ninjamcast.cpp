@@ -15,8 +15,8 @@
 #include <signal.h>
 #include <float.h>
 
-#include "../../WDL/dirscan.h"
-#include "../../WDL/lineparse.h"
+#include "../WDL/dirscan.h"
+#include "../WDL/lineparse.h"
 
 #include "njclient.h"
 
