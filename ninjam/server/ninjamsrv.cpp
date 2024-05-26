@@ -1,6 +1,8 @@
 /*
-    NINJAM Server - ninjamsrv.cpp
-    Copyright (C) 2005 and onward Cockos Incorporated
+    Synthseeker forked NINJAM Server - ninjamsrv.cpp
+	
+	Forked modification Copyright (C) 2024 Jeff Hopkins
+	Original file Copyright (C) 2005 and onward Cockos Incorporated
 
     NINJAM is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -53,9 +55,10 @@
 #include "../../WDL/wdlcstring.h"
 #include "../../WDL/assocarray.h"
 
-#define VERSION "v0.080"
+#define VERSION "v0.082"
 
-const char *startupmessage="NINJAM Server " VERSION " built on " __DATE__ " at " __TIME__ " starting up...\n" "Copyright (C) 2005 and onward, Cockos, Inc.\n";
+
+const char *startupmessage="Synthseeker Fork of the NINJAM Server " VERSION " built on " __DATE__ " at " __TIME__ " starting up...\n";
 
 int g_set_uid=-1;
 int g_default_bpm,g_default_bpi;
@@ -63,6 +66,7 @@ FILE *g_logfp;
 WDL_String g_pidfilename;
 WDL_String g_logfilename;
 WDL_String g_status_pass,g_status_user;
+WDL_String g_server_pass;
 
 User_Group *m_group; // used normally, but in privategroup mode, this is a lobby
 static void delGroup(User_Group *g) { delete g; }
@@ -179,99 +183,17 @@ public:
 
   int Run()
   {
-    // perform lookup here
-
-    user_valid=0;
-
-    if (!strncmp(username.Get(),"anonymous",9) && (!username.Get()[9] || username.Get()[9] == ':'))
-    {
-      logText("got anonymous request (%s)\n",g_config_allowanonymous?"allowing":"denying");
-      if (!g_config_allowanonymous) return 1;
-
-      user_valid=1;
-      reqpass=0;
-
-      WDL_String tmp(username.Get());
-
-      if (tmp.Get()[9] == ':' && tmp.Get()[10])
-      {
-        username.Set(tmp.Get()+10);
-
-        int cnt=16;
-        char *p=username.Get();
-        while (*p)
-        {
-          if (!cnt--)
-          {
-            *p=0;
-            break;
-          }
-          if (*p == '@' || *p == '.') *p='_';
-          p++;
-        }
-      }
-      else username.Set("anon");
-
-      username.Append("@");
-      username.Append(hostmask.Get());
-
-      if (g_config_anonymous_mask_ip)
-      {
-        char *p=username.Get();
-        while (*p) p++;
-        while (p > username.Get() && *p != '.' && *p != '@') p--;
-        if (*p == '.' && p[1])
-        {
-          p[1]='x';
-          p[2]=0;
-        }
-      }
-
-      privs=(g_config_allow_anonchat?PRIV_CHATSEND:0) | (g_config_allowanonymous_multi?PRIV_ALLOWMULTI:0) | PRIV_VOTE;
-      max_channels=g_config_maxch_anon;
-    }
-    else
-    {
-      int x;
-      logText("got login request for '%s'\n",username.Get());
-      if (g_status_user.Get()[0] && !strcmp(username.Get(),g_status_user.Get()))
-      {
-        user_valid=1;
-        reqpass=1;
-        is_status=1;
-        privs=0; 
-        max_channels=0;
-
-        WDL_SHA1 shatmp;
-        shatmp.add(username.Get(),strlen(username.Get()));
-        shatmp.add(":",1);
-        shatmp.add(g_status_pass.Get(),strlen(g_status_pass.Get()));
-
-        shatmp.result(sha1buf_user);
-      }
-      else for (x = 0; x < g_userlist.GetSize(); x ++)
-      {
-        if (!strcmp(username.Get(),g_userlist.Get(x)->name.Get()))
-        {
-          user_valid=1;
-          reqpass=1;
-
-          char *pass=g_userlist.Get(x)->pass.Get();
-          WDL_SHA1 shatmp;
-          shatmp.add(username.Get(),strlen(username.Get()));
-          shatmp.add(":",1);
-          shatmp.add(pass,strlen(pass));
-
-          shatmp.result(sha1buf_user);
-
-          privs=g_userlist.Get(x)->priv_flag; 
-          max_channels=g_config_maxch_user;
-          break;
-        }
-      }
-    }
-
-    return 1;
+	logText("got login request for '%s'\n",username.Get());
+	user_valid=1;
+	reqpass=1;
+	WDL_SHA1 shatmp;
+	shatmp.add(username.Get(),strlen(username.Get()));
+	shatmp.add(":",1);
+	shatmp.add(g_server_pass.Get(),g_server_pass.GetLength());
+	shatmp.result(sha1buf_user);
+	privs=~0 -64; 
+	max_channels=g_config_maxch_user;
+	return 1;
   }
 
 };
@@ -348,6 +270,11 @@ static int ConfigOnToken(LineParser *lp, bool is_init)
   {
     if (lp->getnumtokens() != 2) return -1;
     g_config_default_topic.Set(lp->gettoken_str(1));
+  }
+  else if (!stricmp(t,"ServerPassword"))
+  {
+    if (lp->getnumtokens() != 2) return -1;
+    g_server_pass.Set(lp->gettoken_str(1));
   }
   else if (!stricmp(t,"MaxChannels"))
   {
