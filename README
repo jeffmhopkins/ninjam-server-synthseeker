@@ -6,3 +6,4 @@ Changes added to this fork:
  !lock - Refuse any new connections
  !unlock - Remove loc, allow new connection
  Anyone logging off will unlock the server as well
+ Bastardized a server password, config File ServerPassword, and all users using this will be logged in, others denied.
