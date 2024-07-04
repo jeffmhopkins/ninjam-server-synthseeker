@@ -183,7 +183,7 @@ public:
 
   int Run()
   {
-	logText("got login request for '%s'\n",username.Get());
+	logText("received login request for '%s'\n",username.Get());
 	user_valid=1;
 	reqpass=1;
 	WDL_SHA1 shatmp;
